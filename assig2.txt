@@ -1,0 +1,122 @@
+                                                          ASSIGNMENT 4
+
+1. Create a new MongoDB database called myDatabase.
+   //as we dont have any database called myDatabase im using the below command
+
+   command
+     use myDatabase
+   output
+     switched to db myDatabase
+
+2. Create a collection named users within the myDatabase database.
+   
+   command
+     db.createCollection("users")
+   output
+     { ok: 1 }
+
+3. Insert at least three documents into the users collection, each representing a user with fields such as name, email, and age.
+   //as i need to insert more than one document , i here uses insertMany. We can also use insertOne but need to insert multiple number of       
+     times
+   command
+     db.users.insertMany([{"name":"Anu","email":"anushatippireddy2002@gmail.com","age":21},{"name":"akki","email":"akki02
+     @gmail.com","age":23},{"name":"vaishu","email":"vaishnavikolalapudi202@gmail.com","age":21}])
+   output
+     {
+        acknowledged: true,
+        insertedIds: {
+    '0': ObjectId('65f94acb3ce4e6f86ce05135'),
+    '1': ObjectId('65f94acb3ce4e6f86ce05136'),
+    '2': ObjectId('65f94acb3ce4e6f86ce05137')
+         }
+     }
+
+4. All users from the users collection.
+   //we use find() method to see all the doucments in the database
+   command
+     db.users.find()
+   output
+
+     {
+         _id: ObjectId('65f94acb3ce4e6f86ce05135'),
+         name: 'Anu',
+         email: 'anushatippireddy2002@gmail.com',
+         age: 21
+     }
+     {
+         _id: ObjectId('65f94acb3ce4e6f86ce05136'),
+         name: 'akki',
+         email: 'akki02@gmail.com',
+         age: 23
+     }
+     {
+         _id: ObjectId('65f94acb3ce4e6f86ce05137'),
+         name: 'vaishu',
+         email: 'vaishnavikolalapudi202@gmail.com',
+         age: 21
+     }
+
+5. Users with an age greater than or equal to 30.
+   //gte-hreater than equalls. As >=30 has 0 documents, i have used >=21 also.   
+
+   command
+     db.users.find({age:{$gte:30}})
+   output
+   
+   command
+     db.users.find({age:{$gte:21}})
+   output
+     {
+          _id: ObjectId('65f94acb3ce4e6f86ce05135'),
+          name: 'Anu',
+          email: 'anushatippireddy2002@gmail.com',
+          age: 21
+      }
+      {
+          _id: ObjectId('65f94acb3ce4e6f86ce05136'),
+          name: 'akki',
+          email: 'akki02@gmail.com',
+          age: 23
+      }
+      {
+          _id: ObjectId('65f94acb3ce4e6f86ce05137'),
+          name: 'vaishu',
+          email: 'vaishnavikolalapudi202@gmail.com',
+          age: 21
+      }
+
+6. Update the age of a user with a specific email address.
+   //we are updating the age of user to 22 who has email:"anushatippireddy2002@gmail.com"
+
+   command
+     db.users.updateMany({email:"anushatippireddy2002@gmail.com"},{$set:{age:22}})
+   output    
+     {
+         acknowledged: true,
+         insertedId: null,
+         matchedCount: 1,
+         modifiedCount: 1,
+         upsertedCount: 0
+      }
+
+7. Delete a user document based on a specific email address.
+   //we are deleting the user having email:akki02@gmail.com"
+
+   command
+     db.users.deleteMany({email:"akki02@gmail.com"})
+   output
+     {
+        acknowledged: true,
+        deletedCount: 1
+     }
+
+8. Create an index on the email field of the users collection.
+   //as we need to upload a .txt file we cannot place screen shots of the creating, so i am explaining the steps for the creation of  
+     index.
+
+   -->for creating the index.
+      1. goto indexes filed of the created database
+      2. click on create index
+      3. give the filedname as "email" and select type as "asc" and select any options like unquie.
+      4. ckick on "create index"
+      5. our index got created for field "email"
